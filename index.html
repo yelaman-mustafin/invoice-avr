@@ -788,7 +788,7 @@ function withImages(def, imgs) {
         let buf = pdfCache.get(dk);
         if (!buf) { buf = await toBuffer(def); if (pdfCache.size > 3) pdfCache.delete(pdfCache.keys().next().value); pdfCache.set(dk, buf); }
         if (seq !== renderSeq) return;
-        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf).slice(), disableFontFace: false, isEvalSupported: false }).promise;
+        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf).slice(), disableFontFace: false, isEvalSupported: false, verbosity: 0 }).promise;
         for (let p = 1; p <= pdf.numPages; p++) {
           const page = await pdf.getPage(p);
           const base = page.getViewport({ scale: 1 });
